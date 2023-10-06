@@ -23,40 +23,6 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 app.use(cors());
-/*
-app.post('/upload', upload.single('file'), async (req, res) => {
-  try {
-    const auth = new google.auth.GoogleAuth({
-      keyFile: 'service.json',
-      scopes: ['https://www.googleapis.com/auth/drive'],
-    });
-    const drive = google.drive({
-      version: 'v3',
-      auth: auth,
-    });
-    const uploadedFiles = [];
-    console.log(req)
-    for (let i = 0; i < req.files.length; i++) {
-      const file = req.files[i];
-      const response = await drive.files.create({
-        requestBody: {
-          name: file.originalname,
-          mimeType: file.mimeType,
-          parents: ['1SqViCqnY1QWnClakePbZ3mwz2SpRILa6'],
-        },
-        media: {
-          body: fs.createReadStream(file.path),
-        },
-      });
-      uploadedFiles.push(response.data);
-      console.log(response);
-    }
-    res.json({ files: uploadedFiles });
-  } catch (e) {
-    console.log(e);
-  }
-});
-*/
 
 app.post('/upload', upload.single('files'), async (req, res) => {
   try {
@@ -77,7 +43,7 @@ app.post('/upload', upload.single('files'), async (req, res) => {
       requestBody: {
         name: `${Date.now()}.${extension}`,
         mimeType: file.mimetype,
-        parents: ['1SqViCqnY1QWnClakePbZ3mwz2SpRILa6'],
+        parents: ['1QnIEalL7B7JrvSwtzrBPNBIiL7O9PEkh'],
       },
       media: {
         mimeType: file.mimetype,
