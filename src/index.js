@@ -85,7 +85,7 @@ app.post("/uploadToDrive", upload.single("file"), async (req, res) => {
     });
 
     uploadedFiles.push(response.data);
-   
+
     res.json({ files: uploadedFiles });
   } catch (e) {
     console.log(e);
