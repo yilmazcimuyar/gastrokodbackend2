@@ -13,7 +13,7 @@ const upload = multer({ storage: storage });
 app.use(cors());
 const octokit = new Octokit({
   //auth: "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",
-  auth: "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",
+  auth: "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",
 });
 
 app.post("/upload", upload.single("file"), async (req, res) => {
