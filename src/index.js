@@ -1,11 +1,11 @@
 const express = require("express");
-//const { google } = require("googleapis");
+const { google } = require("googleapis");
 const multer = require("multer");
 
 const cors = require("cors");
 const { Octokit } = require("@octokit/rest");
 const Buffer = require("buffer/").Buffer;
-//const { Readable } = require("stream");
+const { Readable } = require("stream");
 const app = express();
 
 const storage = multer.memoryStorage();
@@ -54,7 +54,7 @@ app.post("/upload", upload.single("file"), async (req, res) => {
     res.status(500).send("Dosya yükleme hatası");
   }
 });
-/*
+
 app.post("/uploadToDrive", upload.single("file"), async (req, res) => {
   try {
     const auth = new google.auth.GoogleAuth({
@@ -90,7 +90,7 @@ app.post("/uploadToDrive", upload.single("file"), async (req, res) => {
     res.status(500).send("Dosya yükleme hatası");
   }
 });
-*/
+
 app.listen(5000, () => {
   console.log("App is listening on port 5000");
 });
