@@ -12,7 +12,8 @@ const upload = multer({ storage: storage });
 
 app.use(cors());
 const octokit = new Octokit({
-  auth: "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",
+  //auth: "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",
+  auth: "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",
 });
 
 app.post("/upload", upload.single("file"), async (req, res) => {
@@ -52,7 +53,6 @@ app.post("/upload", upload.single("file"), async (req, res) => {
     res.status(500).send("Dosya yükleme hatası");
   }
 });
-
 
 app.listen(5000, () => {
   console.log("App is listening on port 5000");
