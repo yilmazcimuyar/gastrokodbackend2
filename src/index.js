@@ -1,11 +1,9 @@
 const express = require("express");
-const { google } = require("googleapis");
 const multer = require("multer");
 
 const cors = require("cors");
 const { Octokit } = require("@octokit/rest");
 const Buffer = require("buffer/").Buffer;
-const { Readable } = require("stream");
 const app = express();
 
 const storage = multer.memoryStorage();
@@ -55,41 +53,6 @@ app.post("/upload", upload.single("file"), async (req, res) => {
   }
 });
 
-app.post("/uploadToDrive", upload.single("file"), async (req, res) => {
-  try {
-    const auth = new google.auth.GoogleAuth({
-      keyFile: "service.json",
-      scopes: ["https://www.googleapis.com/auth/drive"],
-    });
-    const drive = google.drive({
-      version: "v3",
-      auth: auth,
-    });
-    const uploadedFiles = [];
-
-    const file = req.file;
-    const extension = file.mimetype.split("/").pop();
-
-    const response = await drive.files.create({
-      requestBody: {
-        name: `${Date.now()}.${extension}`,
-        mimeType: file.mimetype,
-        parents: ["1QnIEalL7B7JrvSwtzrBPNBIiL7O9PEkh"],
-      },
-      media: {
-        mimeType: file.mimetype,
-        body: Readable.from(file.buffer),
-      },
-    });
-
-    uploadedFiles.push(response.data);
-
-    res.json({ files: uploadedFiles });
-  } catch (e) {
-    console.log(e);
-    res.status(500).send("Dosya yükleme hatası");
-  }
-});
 
 app.listen(5000, () => {
   console.log("App is listening on port 5000");
